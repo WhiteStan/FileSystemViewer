@@ -1,0 +1,41 @@
+<div class="generic-container">
+
+    <div class="well lead">User Profile Page</div>
+    <form>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="userName">Username</label>
+                <div class="col-md-7">
+                    <input type="text" ng-model="controller.getSelectedUser().username" class="form-control input-sm"  />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="password">Password</label>
+                <div class="col-md-7">
+                    <input type="password" ng-model="controller.getSelectedUser().password" class="form-control input-sm"  />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="userProfiles">Roles</label>
+                <div class="col-md-7">
+                    <select ng-model="controller.getSelectedUser().userProfiles" class="form-control input-sm" multiple>
+						<option ng-repeat="option in controller.userProfileType"
+							value="{{option}}">{{option}}</option>
+					</select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-actions floatRight">
+                <button type="button" class="btn btn-success dropdown-toggle" aria-haspopup="true" aria-expanded="true" ng-click="controller.updateUser(controller.getSelectedUser())">Update</button>
+            </div>
+        </div>
+    </form>
+</div>

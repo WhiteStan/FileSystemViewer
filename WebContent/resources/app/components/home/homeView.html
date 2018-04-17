@@ -1,0 +1,65 @@
+<div class="container" ng-show="authenticated" style="padding-top: 20px;">
+    <div class="panel panel-primary">
+        <div class="panel-heading" style="height: 50px;">
+
+            <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> {{controller.entities.name}}
+
+            <div class="btn-group pull-right" role="group">
+
+                <button type="button" class="btn btn-success" ng-click="controller.openPreviousFolder(controller.entities)">
+					Back</button>
+
+                <div ng-if="controller.checkRole('ROLE_ADMIN')" class="dropdown" style="display: inline-block">
+
+                    <button type="button" class="btn btn-success dropdown-toggle" style="margin-left: 10px;" id="createFolder" aria-haspopup="true" aria-expanded="true" ng-click="controller.showDropdownMenu($event)">Create
+						Folder</button>
+
+                    <form class="dropdown-menu" ng-submit="controller.createFolder(folderName, controller.entities)" ng-keypress="controller.hideDropdownMenu($event)">
+
+                        <input type="text" class="form-control" ng-model="folderName" name="folderName" aria-labelby="createFolder"  pattern="[a-zA-Z0-9 _]*"/>
+
+                    </form>
+                </div>
+
+                <div ng-if="controller.checkRole('ROLE_ADMIN')" class="dropdown" style="display: inline-block">
+
+                    <button type="button" class="btn btn-success dropdown-toggle" style="margin-left: 10px;" id="createFile" aria-haspopup="true" aria-expanded="true" ng-click="controller.showDropdownMenu($event)">Create
+						File</button>
+
+                    <form class="dropdown-menu" ng-submit="controller.createFile(fileName, controller.entities)">
+                        <input type="text" class="form-control" ng-model="fileName" name="fileName" aria-labelby="createFile" ng-keypress="controller.hideDropdownMenu($event)"  pattern="[a-zA-Z0-9 ]*" />
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-left">Path</th>
+                        <th class="text-left">Type</th>
+                        <th class="text-right">Commands</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="(key,value) in controller.entities.subEntities">
+                        <td>{{key}}</td>
+                        <td>{{value}}</td>
+                        <td class="text-right">
+                            <button type="button" class="btn btn-primary" ng-click="controller.openFolder(key, controller.entities)">
+								<span class="glyphicon glyphicon-folder-open" aria-hidden="true"
+									title="Open"></span>
+							</button>
+                            <button ng-if="controller.checkRole('ROLE_ADMIN')" type="button" class="btn btn-danger" ng-click="controller.deleteEntity(key, controller.entities)">
+								<span class="glyphicon glyphicon-trash" aria-hidden="true"
+									title="Delete"></span>
+							</button>
+                        </td>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div ng-show="!authenticated">
+    <p>First you should login!</p>
+</div>
